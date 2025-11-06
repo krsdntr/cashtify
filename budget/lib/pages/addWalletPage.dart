@@ -1011,11 +1011,9 @@ Future<String?> createCorrectionTransaction(
       objectiveLoanFk: objectiveLoanPk,
     ),
   );
-  if (rowId != null) {
-    final Transaction transactionJustAdded =
-        await database.getTransactionFromRowId(rowId);
-    return transactionJustAdded.transactionPk;
-  }
+  final Transaction transactionJustAdded =
+      await database.getTransactionFromRowId(rowId);
+  return transactionJustAdded.transactionPk;
   return null;
 }
 

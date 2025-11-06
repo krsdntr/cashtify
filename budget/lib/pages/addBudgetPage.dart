@@ -770,8 +770,7 @@ class _AddBudgetPageState extends State<AddBudgetPage> {
                 initialSelectedEndDate: selectedEndDate,
                 afterAmountEnteredDismissed: (amountEntered) {
                   if (widget.budget != null &&
-                      amountEntered != null &&
-                      budgetAmount != null) {
+                      amountEntered != null) {
                     amountEntered = amountRatioToPrimaryCurrencyGivenPk(
                             Provider.of<AllWallets>(context, listen: false),
                             selectedWalletPk) *

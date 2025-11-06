@@ -454,7 +454,6 @@ class SelectedTransactionsAppBarMenu extends StatelessWidget {
                               DateTime? selectedDate =
                                   await selectDateAndTimeSequence(
                                       context, transactions.first.dateCreated);
-                              if (selectedDate == null) return;
                               await database
                                   .updateDateTimeCreatedOfTransactions(
                                       transactions, selectedDate);
@@ -943,10 +942,8 @@ Future duplicateTransaction(
     insert: true,
   );
   Transaction? transactionJustAdded = null;
-  if (rowId != null) {
-    transactionJustAdded = await database.getTransactionFromRowId(rowId);
-    flashTransaction(transactionJustAdded.transactionPk);
-  }
+  transactionJustAdded = await database.getTransactionFromRowId(rowId);
+  flashTransaction(transactionJustAdded.transactionPk);
   String transactionName = transaction.name;
   if (transactionName.trim() == "") {
     transactionName =

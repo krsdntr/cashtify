@@ -192,7 +192,7 @@ class SearchFilters {
       if (i >= filterElements.length - 1) break;
       String? key = nullIfIndexOutOfRange(filterElements, i);
       String? value = nullIfIndexOutOfRange(filterElements, i + 1);
-      if (key == null || value == null) break;
+      if (value == null) break;
       try {
         switch (key) {
           case 'walletPks':

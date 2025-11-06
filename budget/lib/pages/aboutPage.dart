@@ -43,7 +43,7 @@ class AboutPageState extends State<AboutPage> {
             amountLight: 0.2, amountDark: 0.6)
         : getColor(context, "lightDarkAccent");
 
-    Widget cashewInformation = Wrap(
+    Widget castifyInformation = Wrap(
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -543,7 +543,7 @@ class AboutPageState extends State<AboutPage> {
                       Flexible(
                         child: Column(
                           children: [
-                            cashewInformation,
+                            castifyInformation,
                             SizedBox(height: 15),
                             AboutLinks(containerColor: containerColor),
                             HorizontalBreak(
@@ -588,7 +588,7 @@ class AboutPageState extends State<AboutPage> {
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
                     horizontal: 15, vertical: 7),
-                child: cashewInformation,
+                child: castifyInformation,
               ),
               SizedBox(height: 5),
               AboutLinks(containerColor: containerColor),
@@ -855,7 +855,7 @@ class AboutLinks extends StatelessWidget {
             _buildTappable(
               context: context,
               isExternalLink: true,
-              onTap: () => openUrl("https://github.com/jameskokoska/Cashew"),
+              onTap: () => openUrl("https://github.com/krsdntr/cashtify"),
               icon: MoreIcons.github,
               text: "app-is-open-source".tr(namedArgs: {"app": globalAppName}),
             ),
@@ -993,7 +993,7 @@ class AboutDeepLinking extends StatelessWidget {
       title: "deep-linking".tr(),
       showLink: false,
       link:
-          "https://github.com/jameskokoska/Cashew?tab=readme-ov-file#app-links",
+          "https://github.com/jameskokoska/Castify?tab=readme-ov-file#app-links",
       list: [
         "deep-linking-description".tr(),
       ],

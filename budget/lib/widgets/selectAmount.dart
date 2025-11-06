@@ -484,23 +484,19 @@ class _SelectAmountState extends State<SelectAmount> {
 
   pasteFromClipboard() async {
     double? amount = await readAmountFromClipboard();
-    if (amount != null) {
-      setState(() {
-        this.amount = amount.toString();
-      });
-      widget.setSelectedAmount(amount, amount.toString());
-      bottomSheetControllerGlobal.reMeasure();
+    setState(() {
+      this.amount = amount.toString();
+    });
+    widget.setSelectedAmount(amount, amount.toString());
+    bottomSheetControllerGlobal.reMeasure();
     }
-  }
 
   pasteFromClipboardIntoCalculation() async {
     double? amount = await readAmountFromClipboard();
-    if (amount != null) {
-      for (String number in removeTrailingZeroes(amount.toString()).split("")) {
-        addToAmount(number, hapticFeedback: false);
-      }
+    for (String number in removeTrailingZeroes(amount.toString()).split("")) {
+      addToAmount(number, hapticFeedback: false);
     }
-  }
+    }
 
   bool doesNotContainOtherNumbers(String input) {
     return !RegExp(r'[1-9]').hasMatch(input);

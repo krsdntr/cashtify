@@ -831,7 +831,7 @@ Future saveSampleCSV({required BuildContext boxContext}) async {
       "",
     ]);
     String csv = ListToCsvConverter().convert(csvData);
-    String fileName = "cashew-import-template" +
+    String fileName = "cashtify-import-template" +
         DateTime.now().millisecondsSinceEpoch.toString() +
         ".csv";
     return saveCSV(boxContext: boxContext, csv: csv, fileName: fileName);
@@ -890,7 +890,6 @@ class _ImportingEntriesPopupState extends State<ImportingEntriesPopup> {
     double? amount;
     amount = getAmountFromString(
         (row[assignedColumns["amount"]!["setHeaderIndex"]]).toString().trim());
-    if (amount == null) throw ("Unable to parse amount");
 
     // Handle Mint transaction types
     if (transactionTypeIndex != null) {

@@ -32,14 +32,14 @@ StreamSubscription<List<PurchaseDetails>>? purchaseListener;
 Map<String, ProductDetails> storeProducts = {};
 Map<String, String> productIDs = {
   'yearly': getPlatform(ignoreEmulation: true) == PlatformOS.isIOS
-      ? 'cashew.pro.yearly' //iOS
-      : 'cashew.pro.yearly', //Android
+      ? 'castify.pro.yearly' //iOS
+      : 'castify.pro.yearly', //Android
   'monthly': getPlatform(ignoreEmulation: true) == PlatformOS.isIOS
-      ? 'cashew.pro.monthly' //iOS
-      : 'cashew.pro.monthly', //Android
+      ? 'castify.pro.monthly' //iOS
+      : 'castify.pro.monthly', //Android
   'lifetime': getPlatform(ignoreEmulation: true) == PlatformOS.isIOS
-      ? 'cashew.pro.life' //iOS
-      : 'cashew.pro.lifetime', //Android
+      ? 'castify.pro.life' //iOS
+      : 'castify.pro.lifetime', //Android
 };
 
 // A user has paid is appStateSettings["purchaseID"] is not null
@@ -84,7 +84,7 @@ class PremiumPage extends StatelessWidget {
                               ),
                               Column(
                                 children: [
-                                  CashewProBanner(large: true),
+                                  CastifyProBanner(large: true),
                                   SizedBox(height: 4),
                                   TextFont(
                                     text: "budget-like-a-pro".tr() +
@@ -427,8 +427,8 @@ class _FreePremiumMessageState extends State<FreePremiumMessage> {
   }
 }
 
-class CashewProBanner extends StatelessWidget {
-  const CashewProBanner({this.large = false, this.fontColor, super.key});
+class CastifyProBanner extends StatelessWidget {
+  const CastifyProBanner({this.large = false, this.fontColor, super.key});
   final bool large;
   final Color? fontColor;
 
@@ -531,7 +531,7 @@ class ManageSubscription extends StatelessWidget {
                     fontSize: 16,
                   ),
             SizedBox(height: 10),
-            CashewProBanner(fontColor: getColor(context, "black")),
+            CastifyProBanner(fontColor: getColor(context, "black")),
             TextFont(
               text: currentPlanName ?? "",
               fontSize: 23,
@@ -1297,7 +1297,7 @@ class _FadeOutAndLockFeatureState extends State<FadeOutAndLockFeature> {
                   fontSize: 15,
                 ),
                 SizedBox(height: 5),
-                CashewProBanner(fontColor: getColor(context, "black")),
+                CastifyProBanner(fontColor: getColor(context, "black")),
                 SizedBox(height: 15),
                 LowKeyButton(
                   onTap: openPremiumPopup,
@@ -1459,7 +1459,7 @@ class PremiumBanner extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CashewProBanner(),
+                                    CastifyProBanner(),
                                     purchased
                                         ? Container(
                                             margin:

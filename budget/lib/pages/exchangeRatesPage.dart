@@ -97,12 +97,10 @@ class _ExchangeRatesState extends State<ExchangeRates> {
         String? currencyName = currenciesJSON[key]?["Currency"];
         if ((searchCurrenciesText.trim() == "" ||
             key.toLowerCase().contains(searchCurrenciesText.toLowerCase()) ||
-            (currencyCountry != null &&
-                currencyCountry
+            (currencyCountry
                     .toLowerCase()
                     .contains(searchCurrenciesText.toLowerCase())) ||
-            (currencyName != null &&
-                currencyName
+            (currencyName
                     .toLowerCase()
                     .contains(searchCurrenciesText.toLowerCase())))) {
           currencyExchangeFiltered[key] = currencyExchange[key];

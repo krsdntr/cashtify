@@ -418,7 +418,7 @@ Future<DeletePopupAction?> deleteObjectivePopup(
     int? numTransactions = await database
         .getTotalCountOfTransactionsInObjective(objective.objectivePk)
         .$2;
-    if (numTransactions != null && numTransactions > 0) {
+    if (numTransactions > 0) {
       result = await openPopup(
         context,
         title: objective.type == ObjectiveType.loan

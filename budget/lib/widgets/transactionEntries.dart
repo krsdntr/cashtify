@@ -326,8 +326,7 @@ class _TransactionEntriesState extends State<TransactionEntries> {
                 ? null
                 : data[currentTotalIndex + 1].transaction.dateCreated.justDay();
 
-            if (nextTransactionDate == null ||
-                nextTransactionDate != currentTransactionDate) {
+            if (nextTransactionDate != currentTransactionDate) {
               if (transactionListForDay.length > 0) {
                 int daysDifference = DateTime.now()
                     .justDay()

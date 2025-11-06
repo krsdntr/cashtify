@@ -109,18 +109,7 @@ Future<bool> initializeSettings() async {
   appStateSettings["appOpenedMinute"] = DateTime.now().minute;
 
   String? retrievedClientID = await sharedPreferences.getString("clientID");
-  if (retrievedClientID == null) {
-    String systemID = await getDeviceInfo();
-    String newClientID = systemID
-            .substring(0, (systemID.length > 17 ? 17 : systemID.length))
-            .replaceAll("-", "_") +
-        "-" +
-        DateTime.now().millisecondsSinceEpoch.toString();
-    await sharedPreferences.setString("clientID", newClientID);
-    clientID = newClientID;
-  } else {
-    clientID = retrievedClientID;
-  }
+  clientID = retrievedClientID;
 
   timeDilation = double.parse(appStateSettings["animationSpeed"].toString());
 
@@ -228,9 +217,6 @@ Future<Map<String, dynamic>> getUserSettings() async {
 
   String? userSettings = sharedPreferences.getString('userSettings');
   try {
-    if (userSettings == null) {
-      throw ("no settings on file");
-    }
     print("Found user settings on file");
 
     Map<String, dynamic> userSettingsJSON = json.decode(userSettings);

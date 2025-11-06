@@ -479,7 +479,7 @@ Future<DeletePopupAction?> deleteBudgetPopup(
     } else if (budget.addedTransactionsOnly) {
       int? numTransactions =
           await database.getTotalCountOfTransactionsInBudget(budget.budgetPk);
-      if (numTransactions != null && numTransactions > 0) {
+      if (numTransactions > 0) {
         result = await openPopup(
           context,
           title: "remove-transactions-from-added-budget-question".tr(),

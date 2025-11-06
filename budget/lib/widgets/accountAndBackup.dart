@@ -492,9 +492,6 @@ Future<void> deleteRecentBackups(context, amountToKeep,
       $fields: 'files(id, name, modifiedTime, size)',
     );
     List<drive.File>? files = fileList.files;
-    if (files == null) {
-      throw "No backups found.";
-    }
 
     int index = 0;
     files.forEach((file) {
@@ -1515,7 +1512,7 @@ Future<bool> saveDriveFileToDevice({
   await for (var data in response.stream) {
     dataStore.insertAll(dataStore.length, data);
   }
-  String fileName = "cashew-" +
+  String fileName = "cashtify-" +
       ((fileToSave.name ?? "") +
               cleanFileNameString(
                   (fileToSave.modifiedTime ?? DateTime.now()).toString()))

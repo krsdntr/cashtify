@@ -315,7 +315,7 @@ class _EditHomePageState extends State<EditHomePage> {
                           DateTime.parse(
                               appStateSettings["lineGraphStartDate"]),
                         );
-                        if (picked == null || picked.isAfter(DateTime.now())) {
+                        if (picked.isAfter(DateTime.now())) {
                           if (DateTime.parse(
                                   appStateSettings["lineGraphStartDate"])
                               .isAfter(DateTime.now())) {

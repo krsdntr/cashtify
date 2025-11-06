@@ -356,7 +356,6 @@ class TransactionEntry extends StatelessWidget {
                                 dateCreated: transaction.dateCreated,
                                 endDate: transaction.endDate,
                               );
-                    if (numberRepeats == null) return SizedBox.shrink();
                     return Container(
                       transform: Matrix4.translationValues(
                           (padding.start - padding.end) / 2, 0, 0),

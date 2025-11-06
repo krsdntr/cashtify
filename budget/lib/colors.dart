@@ -357,7 +357,7 @@ Future<bool> systemColorByDefault() async {
     if (supportsSystemColor()) {
       int? androidVersion = await getAndroidVersion();
       print("Android version: " + androidVersion.toString());
-      if (androidVersion != null && androidVersion >= 12) {
+      if (androidVersion >= 12) {
         return true;
       }
     }

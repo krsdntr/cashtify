@@ -90,14 +90,12 @@ class _AppLinksNativeState extends State<AppLinksNative> {
 
   Future<void> initAppLinks() async {
     Uri? appLink = await _appLinks.getInitialLink();
-    if (appLink != null) {
-      // This delay may or may not be needed...
-      // we need to make sure Material navigator is accessible by the context though!
-      Future.delayed(Duration(milliseconds: 0), () {
-        executeAppLink(navigatorKey.currentContext, appLink);
-      });
-    }
-
+    // This delay may or may not be needed...
+    // we need to make sure Material navigator is accessible by the context though!
+    Future.delayed(Duration(milliseconds: 0), () {
+      executeAppLink(navigatorKey.currentContext, appLink);
+    });
+  
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
       executeAppLink(navigatorKey.currentContext, uri);
     });
@@ -350,7 +348,7 @@ Future executeAppLink(BuildContext? context, Uri uri,
       }
       break;
 
-    // Ensures we can see other pages of the Cashew website
+    // Ensures we can see other pages of the Castify website
     // Such as the FAQ
     // default:
     //   if (context != null)
@@ -431,7 +429,7 @@ DateTime? getDateTimeFromParams(
       DateTime? result;
       for (String commonFormat in getCommonDateFormats()) {
         result = tryDateFormatting(context, commonFormat, dateToParse);
-        if (result != null) break;
+        break;
       }
       dateCreated = result;
     }

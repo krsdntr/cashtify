@@ -117,7 +117,7 @@ Future<String?> uploadFileToDrive({
   final authenticateClient = GoogleAuthClient(authHeaders);
   final driveApi = drive.DriveApi(authenticateClient);
 
-  String folderName = "Cashew";
+  String folderName = "Castify";
   drive.FileList list = await driveApi.files.list(
       q: "mimeType='application/vnd.google-apps.folder' and name='$folderName'");
   String? folderId;
@@ -136,8 +136,6 @@ Future<String?> uploadFileToDrive({
     drive.File createdFolder = await driveApi.files.create(folder);
     folderId = createdFolder.id;
   }
-
-  if (folderId == null) throw ("Folder could not be created in Google Drive");
 
   drive.Media media = new drive.Media(mediaStream, fileBytes.length);
 

@@ -469,7 +469,7 @@ Future<bool> billSplitterDeletePerson(SplitPerson person) async {
 Future<List<SplitPerson>> getBillSplitterPersonList() async {
   String? jsonString = sharedPreferences.getString("billSplitterPersonList");
   List<SplitPerson> billSplitterPersonList = [];
-  if (jsonString != null && jsonString.isNotEmpty) {
+  if (jsonString.isNotEmpty) {
     List<dynamic> jsonList = json.decode(jsonString);
     billSplitterPersonList =
         jsonList.map((json) => SplitPerson.fromJson(json)).toList();
@@ -527,7 +527,7 @@ Future<bool> billSplitterUpdateItem(BillSplitterItem newItem, int index) async {
 Future<List<BillSplitterItem>> getBillSplitterItemList() async {
   String? jsonString = sharedPreferences.getString("billSplitterItemList");
   List<BillSplitterItem> billSplitterItemList = [];
-  if (jsonString != null && jsonString.isNotEmpty) {
+  if (jsonString.isNotEmpty) {
     List<dynamic> jsonList = json.decode(jsonString);
     billSplitterItemList =
         jsonList.map((json) => BillSplitterItem.fromJson(json)).toList();

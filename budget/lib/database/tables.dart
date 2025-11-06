@@ -2673,8 +2673,7 @@ class FinanceDatabase extends _$FinanceDatabase {
     if (type == DeleteLogType.Transaction) {
       Transaction? transactionToDelete =
           await database.tryGetTransactionFromPk(deletedPk);
-      if (transactionToDelete != null)
-        addTransactionToRecentlyDeleted(transactionToDelete, save: true);
+      addTransactionToRecentlyDeleted(transactionToDelete, save: true);
     }
     await into(deleteLogs).insert(
       DeleteLogsCompanion.insert(
@@ -5065,8 +5064,6 @@ class FinanceDatabase extends _$FinanceDatabase {
                 ..orderBy([(w) => OrderingTerm.asc(w.order)]))
               .get())
           .firstOrNull;
-      if (newPrimaryCandidate == null)
-        throw "Can't find another wallet to make default";
     }
 
     if (appStateSettings["selectedWalletPk"] == walletPk) {
@@ -5932,9 +5929,7 @@ class FinanceDatabase extends _$FinanceDatabase {
     }
 
     String? noteContains = searchFilters.noteContains;
-    Expression<bool> isInNoteContains = noteContains == null
-        ? Constant(true)
-        : tbl.note.collate(Collate.noCase).like("%" + noteContains + "%");
+    Expression<bool> isInNoteContains = tbl.note.collate(Collate.noCase).like("%" + noteContains + "%");
 
     return isInWalletPks &
         isInCategoryPks &
@@ -6002,7 +5997,6 @@ class FinanceDatabase extends _$FinanceDatabase {
   Expression<bool> onlyShowIfSearchQueryAmount(
       String searchQuery, GeneratedColumn<num> amount) {
     (double, double)? bounds = parseSearchQueryForAmountText(searchQuery);
-    if (bounds == null) return Constant(false);
     double lowerBound = bounds.$1;
     double upperBound = bounds.$2;
 
@@ -6302,13 +6296,9 @@ class FinanceDatabase extends _$FinanceDatabase {
               DateTime.now();
       DateTime? endDate =
           getEndDateOfSelectedCustomPeriod(cycleSettingsExtension);
-      if (endDate != null) {
-        return onlyShowBasedOnTimeRange(tbl, startDate, endDate, null,
-            allTime: false);
-      } else {
-        return tbl.dateCreated.isBiggerOrEqualValue(startDate);
-      }
-    }
+      return onlyShowBasedOnTimeRange(tbl, startDate, endDate, null,
+          allTime: false);
+        }
     return Constant(true);
   }
 
@@ -7481,11 +7471,9 @@ class FinanceDatabase extends _$FinanceDatabase {
                 t.transactionPk.equals(
                     originalBalanceCorrection.pairedTransactionFk ?? "")))
           .getSingleOrNull();
-      if (pairedTransaction != null) {
-        print("Found related transaction with pairing!");
-        return pairedTransaction;
-      }
-
+      print("Found related transaction with pairing!");
+      return pairedTransaction;
+    
       return (await (select(transactions)
                 ..where(
                   (t) =>

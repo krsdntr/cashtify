@@ -257,10 +257,6 @@ Future<bool> _syncData(BuildContext context) async {
       spaces: 'appDataFolder', $fields: 'files(id, name, modifiedTime, size)');
   List<drive.File>? files = fileList.files;
 
-  if (files == null) {
-    throw "No backups found.";
-  }
-
   List<drive.File> filesToDownloadSyncChanges = [];
   for (drive.File file in files) {
     if (isSyncBackupFile(file.name)) {
@@ -306,7 +302,6 @@ Future<bool> _syncData(BuildContext context) async {
     }
 
     String? fileId = file.id;
-    if (fileId == null) continue;
     print("SYNCING WITH " + (file.name ?? ""));
     filesSyncing.add(file);
 

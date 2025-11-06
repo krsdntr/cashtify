@@ -155,28 +155,16 @@ Future<bool> saveFile({
     if (customDirectory == null) {
       // Try again with selecting a custom directory
       String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      if (selectedDirectory == null) {
-        openSnackbar(SnackbarMessage(
-          title: errorMessage.tr(),
-          description: "no-folder-selected".tr(),
-          icon: appStateSettings["outlinedIcons"]
-              ? Icons.warning_outlined
-              : Icons.warning_rounded,
-        ));
-        print("No folder selected");
-        return false;
-      } else {
-        return await saveFile(
-          boxContext: boxContext,
-          dataStore: dataStore,
-          dataString: dataString,
-          fileName: fileName,
-          successMessage: successMessage,
-          errorMessage: errorMessage,
-          customDirectory: selectedDirectory,
-        );
-      }
-    } else {
+      return await saveFile(
+        boxContext: boxContext,
+        dataStore: dataStore,
+        dataString: dataString,
+        fileName: fileName,
+        successMessage: successMessage,
+        errorMessage: errorMessage,
+        customDirectory: selectedDirectory,
+      );
+        } else {
       return await saveFile(
         boxContext: boxContext,
         dataStore: dataStore,

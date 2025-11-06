@@ -1347,8 +1347,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                                       endDate: selectedEndDate,
                                     );
                               return AnimatedSizeSwitcher(
-                                child: numberRepeats != null
-                                    ? Padding(
+                                child: Padding(
                                         padding: const EdgeInsetsDirectional
                                             .symmetric(horizontal: 4),
                                         child: TextFont(
@@ -1360,9 +1359,6 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                                               numberRepeats.toString() +
                                               " )",
                                         ),
-                                      )
-                                    : Container(
-                                        key: ValueKey(2),
                                       ),
                               );
                             }),
@@ -1905,10 +1901,8 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                       onPressed: () async {
                         ContextMenuController.removeAny();
                         double? amount = await readAmountFromClipboard();
-                        if (amount != null) {
-                          setSelectedAmount(amount, amount.toString());
-                        }
-                      },
+                        setSelectedAmount(amount, amount.toString());
+                                            },
                     ),
                   ],
                   tappableBuilder: (onLongPress) {
@@ -2548,14 +2542,12 @@ class _SelectTitleState extends State<SelectTitle> {
               onPressed: () async {
                 DateTime? dateTimeSelected =
                     await selectDateAndTimeSequence(context, selectedDateTime);
-                if (dateTimeSelected != null) {
-                  setState(() {
-                    customDateTimeSelected = true;
-                    selectedDateTime = dateTimeSelected;
-                  });
-                  widget.setSelectedDateTime(selectedDateTime);
-                }
-                // Update the size of the bottom sheet
+                setState(() {
+                  customDateTimeSelected = true;
+                  selectedDateTime = dateTimeSelected;
+                });
+                widget.setSelectedDateTime(selectedDateTime);
+                              // Update the size of the bottom sheet
                 Future.delayed(Duration(milliseconds: 100), () {
                   bottomSheetControllerGlobal.snapToExtent(0);
                   enterTitleFocus.requestFocus();
@@ -4441,8 +4433,7 @@ class _TransactionNotesTextInputState extends State<TransactionNotesTextInput> {
                                         true) {
                                       String? result = await getPhotoAndUpload(
                                           source: ImageSource.camera);
-                                      if (result != null)
-                                        addAttachmentLinkToNote(result);
+                                      addAttachmentLinkToNote(result);
                                     }
                                   },
                                 ),

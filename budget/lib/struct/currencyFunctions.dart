@@ -102,9 +102,7 @@ String getCurrencyString(AllWallets allWallets, {String? currencyKey}) {
       allWallets.indexedByPk[appStateSettings["selectedWalletPk"]]?.currency;
   return currencyKey != null
       ? (currenciesJSON[currencyKey]?["Symbol"] ?? "")
-      : selectedWalletCurrency == null
-          ? ""
-          : (currenciesJSON[selectedWalletCurrency]?["Symbol"] ?? "");
+      : (currenciesJSON[selectedWalletCurrency]?["Symbol"] ?? "");
 }
 
 double getCurrencyExchangeRate(

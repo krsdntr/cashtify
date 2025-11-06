@@ -1,0 +1,55 @@
+# Nama alur kerjamu, bebas
+name: Build Flutter APK
+
+# Kapan harus dijalankan?
+on:
+  # 1. Saat kamu "push" ke branch 'main' atau 'master'
+  push:
+    branches:
+      - main
+      - master
+      
+  # 2. Agar bisa dijalankan manual (ada tombol "Run workflow" di GitHub)
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    # 1. Pakai "dapur bersih" (komputer) Ubuntu terbaru
+    runs-on: ubuntu-latest
+
+    steps:
+      # 2. Ambil kodemu dari GitHub
+      - name: Ambil Kode
+        uses: actions/checkout@v4
+
+      # 3. Setup JAVA 17 (Ini PENTING untuk resepmu)
+      # Ini akan "mengalahkan" Java 21 yang bermasalah itu
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 4. Setup FLUTTER (Pakai versi yang sama denganmu)
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.7' # Sesuaikan jika versimu beda
+          channel: 'stable'
+          cache: true # Biar build berikutnya lebih cepat
+
+      # 5. Jalankan perintah build (sama seperti di lokal)
+      - name: Install Dependensi
+        run: flutter pub get
+
+      - name: Build APK
+        # Kita pakai --no-sound-null-safety jika proyekmu proyek lama
+        # Hapus baris ini jika tidak perlu
+        run: flutter build apk --release --no-sound-null-safety
+
+      # 6. Upload APK-nya agar bisa kamu download
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

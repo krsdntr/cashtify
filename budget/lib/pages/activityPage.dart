@@ -59,18 +59,16 @@ Future<void> loadRecentlyDeletedTransactions() async {
   String? jsonString =
       sharedPreferences.getString("recentlyDeletedTransactions");
 
-  if (jsonString != null) {
-    try {
-      List<dynamic> decodedData = jsonDecode(jsonString);
-      recentlyDeletedTransactions = decodedData
-          .map((entry) => MapEntry<String, Transaction>(
-                entry['key'] as String,
-                Transaction.fromJson(entry['value'] as Map<String, dynamic>),
-              ))
-          .toList();
-    } catch (e) {
-      print("Error loading recently deleted transactions: " + e.toString());
-    }
+  try {
+    List<dynamic> decodedData = jsonDecode(jsonString);
+    recentlyDeletedTransactions = decodedData
+        .map((entry) => MapEntry<String, Transaction>(
+              entry['key'] as String,
+              Transaction.fromJson(entry['value'] as Map<String, dynamic>),
+            ))
+        .toList();
+  } catch (e) {
+    print("Error loading recently deleted transactions: " + e.toString());
   }
 }
 
