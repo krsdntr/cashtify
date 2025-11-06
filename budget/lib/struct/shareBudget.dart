@@ -24,9 +24,6 @@ Future<bool> shareBudget(Budget? budgetToShare, context) async {
   print(budgetToShare.budgetPk);
   // Share budget information
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    return false;
-  }
   print(budgetToShare.reoccurrence);
   print(enumRecurrence[budgetToShare.reoccurrence]);
   Map<String, dynamic> budgetEntry = {
@@ -73,9 +70,6 @@ Future<bool> removedSharedFromBudget(Budget sharedBudget,
   if (removeFromServer)
     try {
       FirebaseFirestore? db = await firebaseGetDBInstance();
-      if (db == null) {
-        return false;
-      }
       DocumentReference collectionRef =
           db.collection('budgets').doc(sharedBudget.sharedKey);
       CollectionReference transactionSubCollection = db
@@ -127,9 +121,6 @@ Future<bool> removedSharedFromBudget(Budget sharedBudget,
 Future<bool> leaveSharedBudget(Budget sharedBudget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    return false;
-  }
   removeMemberFromBudget(sharedBudget.sharedKey!,
       FirebaseAuth.instance.currentUser!.email!, sharedBudget);
   removedSharedFromBudget(sharedBudget, removeFromServer: false);
@@ -139,9 +130,6 @@ Future<bool> leaveSharedBudget(Budget sharedBudget) async {
 Future<bool> addMemberToBudget(
     String sharedKey, String member, Budget budget) async {
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    return false;
-  }
   DocumentReference budgetCreatedOnCloud =
       db.collection('budgets').doc(sharedKey);
   budgetCreatedOnCloud.update({
@@ -170,9 +158,6 @@ Future<bool> removeMemberFromBudget(
     String sharedKey, String member, Budget budget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    return false;
-  }
   DocumentReference budgetCreatedOnCloud =
       db.collection('budgets').doc(sharedKey);
   budgetCreatedOnCloud.update({
@@ -195,9 +180,6 @@ Future<bool> removeMemberFromBudget(
 Future<dynamic> getMembersFromBudget(String sharedKey, Budget budget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    return null;
-  }
   DocumentReference budgetCreatedOnCloud =
       db.collection('budgets').doc(sharedKey);
   Map<dynamic, dynamic> budgetDecoded =
@@ -279,9 +261,6 @@ Future<bool> getCloudBudgets() async {
     cloudTimeoutTimer = Timer(Duration(milliseconds: 5000), () {
       cloudTimeoutTimer!.cancel();
     });
-  }
-  if (db == null) {
-    return false;
   }
 
   final budgetMembersOf = db.collection('budgets').where('members',
@@ -484,24 +463,6 @@ Future<bool> sendTransactionSet(Transaction transaction, Budget budget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   print("SETTING UP TRANSACTION TO BE SET: " + transaction.toString());
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    Map<dynamic, dynamic> currentSendTransactionsToServerQueue =
-        appStateSettings["sendTransactionsToServerQueue"];
-    currentSendTransactionsToServerQueue[transaction.transactionPk.toString()] =
-        {
-      "action": "sendTransactionSet",
-      "transactionPk": transaction.transactionPk.toString(),
-      "budgetPk": budget.budgetPk.toString(),
-    };
-    print(currentSendTransactionsToServerQueue);
-    updateSettings(
-      "sendTransactionsToServerQueue",
-      currentSendTransactionsToServerQueue,
-      pagesNeedingRefresh: [],
-      updateGlobalState: false,
-    );
-    return false;
-  }
   await setOnServer(db, transaction, budget);
   return true;
 }
@@ -541,24 +502,6 @@ Future<bool> setOnServer(
 Future<bool> sendTransactionAdd(Transaction transaction, Budget budget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    Map<dynamic, dynamic> currentSendTransactionsToServerQueue =
-        appStateSettings["sendTransactionsToServerQueue"];
-    currentSendTransactionsToServerQueue[transaction.transactionPk.toString()] =
-        {
-      "action": "sendTransactionAdd",
-      "transactionPk": transaction.transactionPk.toString(),
-      "budgetPk": budget.budgetPk.toString(),
-    };
-    updateSettings(
-      "sendTransactionsToServerQueue",
-      currentSendTransactionsToServerQueue,
-      pagesNeedingRefresh: [],
-      updateGlobalState: false,
-    );
-    print(currentSendTransactionsToServerQueue);
-    return false;
-  }
   await addOnServer(db, transaction, budget);
   return true;
 }
@@ -602,24 +545,6 @@ Future<bool> sendTransactionDelete(
     Transaction transaction, Budget budget) async {
   if (appStateSettings["sharedBudgets"] == false) return false;
   FirebaseFirestore? db = await firebaseGetDBInstance();
-  if (db == null) {
-    Map<dynamic, dynamic> currentSendTransactionsToServerQueue =
-        appStateSettings["sendTransactionsToServerQueue"];
-    currentSendTransactionsToServerQueue[transaction.transactionPk.toString()] =
-        {
-      "action": "sendTransactionDelete",
-      "transactionSharedKey": transaction.sharedKey.toString(),
-      "budgetPk": budget.budgetPk.toString(),
-    };
-    print(currentSendTransactionsToServerQueue);
-    updateSettings(
-      "sendTransactionsToServerQueue",
-      currentSendTransactionsToServerQueue,
-      pagesNeedingRefresh: [],
-      updateGlobalState: false,
-    );
-    return false;
-  }
   await deleteOnServer(db, transaction.sharedKey, budget);
   return true;
 }
@@ -652,9 +577,6 @@ Future<bool> syncPendingQueueOnServer() async {
       appStateSettings["sendTransactionsToServerQueue"];
   for (String key in currentSendTransactionsToServerQueue.keys) {
     FirebaseFirestore? db = await firebaseGetDBInstance();
-    if (db == null) {
-      return false;
-    }
     try {
       print("CURRENT:");
       print(currentSendTransactionsToServerQueue[key]);

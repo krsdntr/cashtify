@@ -217,9 +217,6 @@ Future<bool> shareFeedback(String feedbackText, String feedbackType,
 
   try {
     FirebaseFirestore? db = await firebaseGetDBInstanceAnonymous();
-    if (db == null) {
-      throw ("Can't connect to db");
-    }
     Map<String, dynamic> feedbackEntry = {
       "stars": (selectedStars ?? -1) + 1,
       "feedback": feedbackText,

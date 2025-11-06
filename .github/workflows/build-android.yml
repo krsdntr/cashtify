@@ -1,15 +1,11 @@
 # Nama alur kerjamu, bebas
 name: Build Flutter APK
 
-# Kapan harus dijalankan?
 on:
-  # 1. Saat kamu "push" ke branch 'main' atau 'master'
   push:
     branches:
       - main
       - master
-      
-  # 2. Agar bisa dijalankan manual (ada tombol "Run workflow" di GitHub)
   workflow_dispatch:
 
 jobs:
@@ -18,38 +14,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 2. Ambil kodemu dari GitHub
+      # 2. Ambil Kodemu
       - name: Ambil Kode
         uses: actions/checkout@v4
 
-      # 3. Setup JAVA 17 (Ini PENTING untuk resepmu)
-      # Ini akan "mengalahkan" Java 21 yang bermasalah itu
+      # 3. Setup Java 17
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # 4. Setup FLUTTER (Pakai versi yang sama denganmu)
+      # 4. Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.7' # Sesuaikan jika versimu beda
           channel: 'stable'
-          cache: true # Biar build berikutnya lebih cepat
+          cache: true
 
-      # 5. Jalankan perintah build (sama seperti di lokal)
+      # 5. Install Dependensi (DI DALAM FOLDER BUDGET)
       - name: Install Dependensi
         run: flutter pub get
+        working-directory: budget  # <-- INI PERUBAHAN PENTING
 
+      # 6. Build APK (DI DALAM FOLDER BUDGET)
       - name: Build APK
-        # Kita pakai --no-sound-null-safety jika proyekmu proyek lama
-        # Hapus baris ini jika tidak perlu
         run: flutter build apk --release --no-sound-null-safety
+        working-directory: budget  # <-- INI PERUBAHAN PENTING
 
-      # 6. Upload APK-nya agar bisa kamu download
+      # 7. Upload APK-nya (dari LOKASI YANG BENAR)
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          # Path-nya sekarang menyertakan 'budget'
+          path: budget/build/app/outputs/flutter-apk/app-release.apk

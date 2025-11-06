@@ -4235,9 +4235,6 @@ class FinanceDatabase extends _$FinanceDatabase {
 
     if (budget.sharedKey != null && updateSharedEntry == true) {
       FirebaseFirestore? db = await firebaseGetDBInstance();
-      if (db == null) {
-        return -1;
-      }
       DocumentReference collectionRef =
           db.collection('budgets').doc(budget.sharedKey);
       collectionRef.update({

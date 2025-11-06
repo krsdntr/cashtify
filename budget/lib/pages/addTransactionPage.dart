@@ -2401,12 +2401,10 @@ class _DateButtonState extends State<DateButton> {
                   context,
                   selectedTime,
                 );
-                if (newTime != null) {
-                  setState(() {
-                    selectedTime = newTime;
-                  });
-                }
-                widget.setSelectedTime(newTime ?? selectedTime);
+                setState(() {
+                  selectedTime = newTime;
+                });
+                              widget.setSelectedTime(newTime ?? selectedTime);
               },
               borderRadius: 5,
               child: Padding(
@@ -3707,7 +3705,7 @@ class SelectTransactionTypePopup extends StatelessWidget {
                     openPage: Container(),
                     containerColor: Theme.of(context)
                         .colorScheme
-                        .background
+                        .surface
                         .withOpacity(0.5),
                     transaction: Transaction(
                       transactionPk: "-1",
@@ -4736,7 +4734,7 @@ class SelectSubcategoryChips extends StatelessWidget {
                         allowMultipleSelected: false,
                         selectedColor: Theme.of(context)
                             .colorScheme
-                            .background
+                            .surface
                             .withOpacity(0.6),
                         onLongPress: (category) {
                           pushRoute(

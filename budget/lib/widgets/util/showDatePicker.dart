@@ -157,8 +157,7 @@ class _DateRangePickerPopupState extends State<DateRangePickerPopup> {
     if (allTime || forceAllTime) return DateTimeRangeOrAllTime(allTime: true);
     DateTimeRange? safeRange =
         createSafeDateTimeRange(start: startDate, end: endDate);
-    if (safeRange != null)
-      return DateTimeRangeOrAllTime(allTime: false, dateTimeRange: safeRange);
+    return DateTimeRangeOrAllTime(allTime: false, dateTimeRange: safeRange);
     return null;
   }
 
@@ -252,8 +251,8 @@ class _DateRangePickerPopupState extends State<DateRangePickerPopup> {
                                       start: result, end: endDate);
                               setState(() {
                                 startDate =
-                                    safeRange?.start ?? result ?? startDate;
-                                endDate = safeRange?.end ?? endDate;
+                                    safeRange.start ?? result ?? startDate;
+                                endDate = safeRange.end ?? endDate;
                               });
                             },
                             fontSize: 24,
@@ -278,8 +277,8 @@ class _DateRangePickerPopupState extends State<DateRangePickerPopup> {
                                   createSafeDateTimeRange(
                                       start: startDate, end: result);
                               setState(() {
-                                startDate = safeRange?.start ?? startDate;
-                                endDate = safeRange?.end ?? result ?? endDate;
+                                startDate = safeRange.start ?? startDate;
+                                endDate = safeRange.end ?? result ?? endDate;
                               });
                             },
                             fontSize: 24,
@@ -436,17 +435,6 @@ Future<DateTime?> selectDateAndTimeSequence(
         ? "set-date-time".tr()
         : "set-date-time".tr().allCaps,
   );
-  if (selectedTime == null) {
-    openSnackbar(
-      SnackbarMessage(
-        icon: appStateSettings["outlinedIcons"]
-            ? Icons.timer_off_outlined
-            : Icons.timer_off_rounded,
-        title: "time-not-selected".tr(),
-      ),
-    );
-    return null;
-  }
   selectedDateTime = selectedDateTime.copyWith(
     hour: selectedTime.hour,
     minute: selectedTime.minute,

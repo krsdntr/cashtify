@@ -139,26 +139,24 @@ class _DailyNotificationsSettingsState
                     onTap: () async {
                       TimeOfDay? newTime =
                           await showCustomTimePicker(context, timeOfDay);
-                      if (newTime != null) {
-                        setState(() {
-                          timeOfDay = newTime;
-                        });
-                        await updateSettings(
-                          "notificationHour",
-                          timeOfDay.hour,
-                          pagesNeedingRefresh: [],
-                          updateGlobalState: false,
-                        );
-                        await updateSettings(
-                          "notificationMinute",
-                          timeOfDay.minute,
-                          pagesNeedingRefresh: [],
-                          updateGlobalState: false,
-                        );
-                        await initializeNotificationsPlatform();
-                        await setDailyNotifications(context);
-                      }
-                    },
+                      setState(() {
+                        timeOfDay = newTime;
+                      });
+                      await updateSettings(
+                        "notificationHour",
+                        timeOfDay.hour,
+                        pagesNeedingRefresh: [],
+                        updateGlobalState: false,
+                      );
+                      await updateSettings(
+                        "notificationMinute",
+                        timeOfDay.minute,
+                        pagesNeedingRefresh: [],
+                        updateGlobalState: false,
+                      );
+                      await initializeNotificationsPlatform();
+                      await setDailyNotifications(context);
+                                        },
                     afterWidget: TimeDigits(timeOfDay: timeOfDay),
                   ),
                 ),
